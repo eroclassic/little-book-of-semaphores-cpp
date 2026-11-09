@@ -1,6 +1,6 @@
 # Semaphore Practice
 
-Small, runnable C++ exercises for learning synchronization through puzzles. The first exercise is rendezvous: two threads must each reach a synchronization point before either continues past it.
+Small, runnable C++ exercises for learning synchronization through puzzles. Start with rendezvous, then work through six classic synchronization problems. Each folder has a prompt, staged hints, a starter implementation, and tests. The starter implementations are intentionally incomplete; solving them is the point.
 
 The exercises are inspired by Allen B. Downey's *The Little Book of Semaphores*. This repository is an independent C++ learning project, not an official companion to the book.
 
@@ -21,8 +21,27 @@ ctest --test-dir build --output-on-failure
 ## Exercises
 
 1. [Rendezvous](exercises/01-rendezvous/README.md)
+2. [Mutex](exercises/02-mutex/README.md)
+3. [Multiplex](exercises/03-multiplex/README.md)
+4. [Reusable barrier](exercises/04-reusable-barrier/README.md)
+5. [Producer-consumer](exercises/05-producer-consumer/README.md)
+6. [Readers-writers](exercises/06-readers-writers/README.md)
+7. [Dining philosophers](exercises/07-dining-philosophers/README.md)
 
-Each exercise contains a prompt, progressive hints, an implementation, and a small executable test. Try the puzzle before opening `solution.cpp`.
+Each exercise contains a prompt, progressive hints, an incomplete `solution.cpp`, and an executable test. Implement one problem at a time, then run its test target. The tests are expected to fail until you complete the corresponding implementation. They check concrete ordering, exclusion, capacity, progress, or data-integrity requirements; repeated concurrent runs are useful checks, but they do not prove correctness for every possible schedule. CTest applies a timeout to catch deadlocks.
+
+Build all exercise test programs:
+
+```sh
+cmake -S . -B build
+cmake --build build
+```
+
+Run one exercise's test (for example, rendezvous):
+
+```sh
+ctest --test-dir build -R '^rendezvous$' --output-on-failure
+```
 
 ## Attribution and licensing
 

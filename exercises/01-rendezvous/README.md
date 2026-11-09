@@ -4,7 +4,7 @@
 
 Two threads each perform a first action, then reach a rendezvous. They may arrive in either order. Ensure each thread completes its first action before the other thread performs its second action. Do not impose an ordering between the two first actions or between the two second actions.
 
-Implement `run_rendezvous` in `solution.cpp`. The event recorder and test are provided. A correct solution should work regardless of which thread reaches the rendezvous first.
+Implement `run_rendezvous` in `solution.cpp`. The test is provided. A correct solution should work regardless of which thread reaches the rendezvous first.
 
 ## Progressive hints
 
