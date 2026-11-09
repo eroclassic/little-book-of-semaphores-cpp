@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+usage() {
+    cat <<'EOF'
+Usage: ./practice <exercise|all|list>
+
+Exercises:
+  rendezvous
+  mutex
+  multiplex
+  reusable_barrier
+  producer_consumer
+  readers_writers
+  dining_philosophers
+EOF
+}
+
+if [[ $# -ne 1 ]]; then
+    usage
+    exit 2
+fi
+
+selection="$1"
+targets=()
+tests=()
+
+case "$selection" in
+    list)
+        usage
+        exit 0
+        ;;
+    rendezvous|mutex|multiplex|reusable_barrier|producer_consumer|readers_writers|dining_philosophers)
+        targets=("${selection}_tests")
+        tests=("^${selection}$")
+        ;;
+    all)
+        targets=(
+            rendezvous_tests
+            mutex_tests
+            multiplex_tests
+            reusable_barrier_tests
+            producer_consumer_tests
+            readers_writers_tests
+            dining_philosophers_tests
+        )
+        tests=()
+        ;;
+    *)
+        echo "Unknown exercise: $selection" >&2
+        usage >&2
+        exit 2
+        ;;
+esac
+
+cmake -S "$repo_root" -B "$repo_root/build"
+cmake --build "$repo_root/build" --target "${targets[@]}"
+
+if [[ "$selection" == "all" ]]; then
+    ctest --test-dir "$repo_root/build" --output-on-failure
+else
+    ctest --test-dir "$repo_root/build" -R "${tests[0]}" --output-on-failure
+fi

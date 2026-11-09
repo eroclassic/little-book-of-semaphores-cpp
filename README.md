@@ -10,13 +10,13 @@ The exercises are inspired by Allen B. Downey's *The Little Book of Semaphores*.
 - CMake 3.20+
 - Threads support
 
-## Build and run
+## Practice one exercise
 
 ```sh
-cmake -S . -B build
-cmake --build build
-ctest --test-dir build --output-on-failure
+./practice rendezvous
 ```
+
+That single command configures the project, builds the selected exercise, and runs its test. Replace `rendezvous` with another exercise name, or run `./practice list` to see the choices. Use `./practice all` after completing more exercises. The starter implementations are intentionally incomplete, so their tests fail until you solve them.
 
 ## Exercises
 
@@ -29,19 +29,6 @@ ctest --test-dir build --output-on-failure
 7. [Dining philosophers](exercises/07-dining-philosophers/README.md)
 
 Each exercise contains a prompt, progressive hints, an incomplete `solution.cpp`, and an executable test. Implement one problem at a time, then run its test target. The tests are expected to fail until you complete the corresponding implementation. They check concrete ordering, exclusion, capacity, progress, or data-integrity requirements; repeated concurrent runs are useful checks, but they do not prove correctness for every possible schedule. CTest applies a timeout to catch deadlocks.
-
-Build all exercise test programs:
-
-```sh
-cmake -S . -B build
-cmake --build build
-```
-
-Run one exercise's test (for example, rendezvous):
-
-```sh
-ctest --test-dir build -R '^rendezvous$' --output-on-failure
-```
 
 ## Attribution and licensing
 
